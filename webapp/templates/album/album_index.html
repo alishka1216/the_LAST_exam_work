@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{{ perms.project }}
+{% block menu %}
+    {% if perms.webapp.add_album %}
+        <li><a href="{% url "album-add" %}">Создать продукт</a></li>
+    {% endif %}
+{% endblock menu %}
+
+{% block content %}
+ {% include 'partial/album_list.html' %}
+{% endblock content %}

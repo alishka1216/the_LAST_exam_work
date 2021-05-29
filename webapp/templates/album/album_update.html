@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="{% url 'album-update' album.id %}" method="post">
+    {% include "partial/form.html" with button_text='Send' %}
+</form>
+{% endblock  %}

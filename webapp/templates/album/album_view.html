@@ -1,0 +1,41 @@
+
+{% extends "base.html" %}
+    {{ perms.album }}
+{% block nav%}
+    {% if user.is_authenticated %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'photo-add' album.id %}">Добавить фото</a><br>
+        </li>
+    {% endif %}
+    {% if perms.webapp.change_album%}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'album-update' album.id %}">Изменить альбом</a>
+        </li>
+        {% endif %}
+    {% if perms.webapp.delete_album %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'album-delete' album.id %}">Удалить альбом</a>
+        </li>
+        {% endif %}
+{% endblock %}
+{%  block content %}
+
+
+    <h1>Альбом № {{ album.id }}</h1>
+    <p>Название: {{ album.title }}</p>
+    <p>Описание: {{ album.description }}</p>
+    <p>Время создания: {{ album.data }}</p>
+    <p>Автор: {{ album.author }}</p>
+{#    {% if album.avatar %}#}
+{#    <img class="avatar" src="{{ album.avatar.url }}" alt="{{ album.avatar.url }}"width="250" height="250" alt="user picture">#}
+{#        {% else %}#}
+{#            <img class="avatar" src="/uploads/avatars/VKontakte-Rossiya-Anonimnost-6.jpg"  width="250" height="250" alt="user picture">#}
+{#        {% endif %}#}
+    {% for photo in album.album_photos.all %}
+         <p>Photo: <a href="{% url 'photo-view' photo.pk %}">{{ photo.author  }}</a></p>
+    {% empty %}
+        <h2>Нет фото</h2>
+    {% endfor %}
+
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+{{ perms.album }}
+{% block  nav%}
+    {% if perms.webapp.change_album %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'photo-update' photo.id %}">Изменить</a>
+        </li>
+    {% endif %}
+    {% if perms.webapp.delete_photo %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'photo-delete' photo.id %}">удалить</a>
+        </li>
+    {% endif %}
+{% endblock %}
+{%  block content %}
+    <p>Фотография: <img src="{{ photo.avatar.url}} " width="250" height="250"></p>
+    <p>Подпись: {{ photo.title }}</p>
+    <p>Автор: {{ photo.author }}</p>
+    <p>Дата: {{ photo.created_ad }}</p>
+    <p>Альбом: {{ photo.album }}</p>
+    <p>Статус: {{ photo.status }}</p>
+{% endblock content %}

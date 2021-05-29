@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{{ perms.photo }}
+{% block menu %}
+    {% if perms.webapp.add_photo %}
+        <li><a href="{% url "photo-add" %}">Создать фото</a></li>
+    {% endif %}
+{% endblock menu %}
+
+{% block content %}
+    <h1>Фото</h1>
+    {% if not photo %}
+        <h2>Нет фото</h2>
+    {% else %}
+        {% include 'partial/search_form.html' %}
+    {% endif %}
+    {% for photo in photos %}
+            <p>{{ photo.status }}: <a href="{% url "photo-view" photo.id%}">{{ photo.description }}</a></p>
+    {% endfor %}
+    {% include 'partial/paginate.html' %}
+{% endblock content %}

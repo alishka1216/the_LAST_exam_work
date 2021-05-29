@@ -1,0 +1,9 @@
+
+{% for album in albums %}
+    <div class="box">
+        <h4>Альбом: <a href="{% url "album-view" album.id %}">{{ album.title }}</a></h4>
+    </div>
+{% empty %}
+    <h2 class="text-center">Нет фото</h2>
+{% endfor %}
+
