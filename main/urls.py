@@ -14,7 +14,13 @@ from webapp.views import (
     AlbumUpdate,
     AlbumDelete,
 )
-
+from webapp.views.like import (
+    AddPhoto,
+    RemovePhoto,
+    AddAlbum,
+    RemoveAlbum
+)
+app_name = 'article'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,5 +36,9 @@ urlpatterns = [
     path('album/add/', AlbumCreate.as_view(), name='album-add'),
     path('album/update/<int:pk>/', AlbumUpdate.as_view(), name='album-update'),
     path('album/delete/<int:pk>/', AlbumDelete.as_view(), name='album-delete'),
+    path('<int:pk>/Addalbum/', AddAlbum.as_view(), name='album_like'),
+    path('<int:pk>/RemoveAlbum/', RemoveAlbum.as_view(), name='album_unlike'),
+    path('<int:pk>/AddPhoto/', AddPhoto.as_view(), name='photo_like'),
+    path('<int:pk>/RemovePhoto/', RemovePhoto.as_view(), name='photo_unlike'),
     path('accounts/', include('accounts.urls')),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

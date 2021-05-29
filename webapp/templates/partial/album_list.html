@@ -3,6 +3,17 @@
     <div class="box">
         <h4>Альбом: <a href="{% url "album-view" album.id %}">{{ album.title }}</a></h4>
     </div>
+{#       {% if user.is_authenticated %}#}
+{#    {% if article.pk in article_like %}#}
+{#        <p><a data-articleCounter="counter{{ article.pk }}" onclick="unlikeArticle(event)" href="{% url "article:article_unlike" article.pk %}"><i class="fas fa-thumbs-up"></i></a></p>#}
+{#    {% else %}#}
+{#        <p><a data-articleCounter="counter{{ article.pk }}" onclick="articleLike(event)" href="{% url "article:article_like"  article.pk %}"><i class="far fa-thumbs-up"></i></a></p>#}
+{#    {% endif %}#}
+{#    {% endif %}#}
+    <p id="counter{{ article.pk }}">
+    {{ article.UserArticle.count }}
+    </p>
+    <p id="counter{{ photo.pk }}">{{ photo.PhotoUser.count }}</p>
 {% empty %}
     <h2 class="text-center">Нет фото</h2>
 {% endfor %}

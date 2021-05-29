@@ -1,6 +1,6 @@
 
 from django.shortcuts import render, get_object_or_404, redirect
-from webapp.models import BaseModel, Album, Photo
+from webapp.models import BaseModel, Album, Photo, PhotoUser
 from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.urls import reverse, reverse_lazy
@@ -16,8 +16,19 @@ class IndexView(ListView):
     model = Photo
     context_object_name = 'photos'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        photos_id = []
+        for photo_id in PhotoUser.objects.filter(user=user):
+            photos_id.append(photo_id.photo.pk)
+        context['favorite_photos'] = photos_id
+
+        return context
+
     def get_queryset(self):
         return Photo.objects.filter(review__user_id=self.request.user.pk).order_by('-check_in')
+
 
 
 class PhotoView(DetailView):

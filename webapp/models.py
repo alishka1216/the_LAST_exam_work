@@ -66,4 +66,26 @@ class Album(BaseModel):
     def __str__(self):
         return self.title
 
+class PhotoUser(BaseModel):
+    photo = models.ForeignKey("webapp.Photo", on_delete=models.CASCADE, related_name="PhotoUser")
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="PhotoUser")
+
+    class Meta:
+        verbose_name = 'Избранное(фото)'
+        verbose_name_plural = 'Избранные(фото)'
+
+    def str(self):
+        return "Id photo: {}. User: {}".format(self.photo_id, self.user)
+
+
+class AlbumUser(BaseModel):
+    album = models.ForeignKey("webapp.Album", on_delete=models.CASCADE, related_name="AlbumUser")
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="AlbumUser")
+
+    class Meta:
+        verbose_name = 'Избранное(альбом)'
+        verbose_name_plural = 'Избранные(альбом)'
+
+    def str(self):
+        return "Id album: {}. User: {}".format(self.album_id, self.user)
 

@@ -26,16 +26,19 @@
     <p>Описание: {{ album.description }}</p>
     <p>Время создания: {{ album.data }}</p>
     <p>Автор: {{ album.author }}</p>
-{#    {% if album.avatar %}#}
-{#    <img class="avatar" src="{{ album.avatar.url }}" alt="{{ album.avatar.url }}"width="250" height="250" alt="user picture">#}
-{#        {% else %}#}
-{#            <img class="avatar" src="/uploads/avatars/VKontakte-Rossiya-Anonimnost-6.jpg"  width="250" height="250" alt="user picture">#}
-{#        {% endif %}#}
     {% for photo in album.album_photos.all %}
-         <p>Photo: <a href="{% url 'photo-view' photo.pk %}">{{ photo.author  }}</a></p>
+         <p>Photo: <a href="{% url 'photo-view' photo.pk %}">{{ photo.author  }}</a>
+{#    <p id="counter{{ photo.pk }}">{{ photo.PhotoUser.count }}</p>#}
+{#    {% if photo.pk in favorite_photos and user.is_authenticated %}#}
+{#        <p><a data-counter="counter{{ photo.pk }}" onclick="removePhoto(event)" href="{% url "photos:remove_photo" photo.id %}"><i class="fas fa-heart"></i></a></p>#}
+{#    {% else %}#}
+{#        <p><a data-counter="counter{{ photo.pk }}" onclick="addPhoto(event)" href="{% url "photos:add_photo"  photo.id %}"><i class="far fa-heart"></i></a></p>#}
+{#    {% endif %}#}
+    <p id="counter{{ photo.pk }}">{{ photo.PhotoUser.count }}</p>
+        {#        <p><a data-articleCounter="counter{{ album.pk }}" onclick="articleLike(event)" href="{% url "article_like"  album.pk %}"><i class="far fa-thumbs-up"></i></a></p>#}
     {% empty %}
         <h2>Нет фото</h2>
     {% endfor %}
 
-
 {% endblock content %}
+
